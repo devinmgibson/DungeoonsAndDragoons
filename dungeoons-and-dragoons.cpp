@@ -1,11 +1,12 @@
 #include <iostream>
+#include "Character.h"
 
 int main()
 {   
     // Welcome
-    char character = 'z';
+    char characterInput = 'z';
     char confirmSelection = 'n';
-    std::cout << "Welcome to Dungeoons and Dragoons" << std::endl;
+    std::cout << "Welcome to Dungeoons and Dragoons!" << std::endl;
 
     while ( confirmSelection == 'N' || confirmSelection == 'n' )
     {
@@ -18,26 +19,26 @@ int main()
         std::cout << "Selection: ";
 
         // Player selects character
-        std::cin >> character;
+        std::cin >> characterInput;
 
         // Verify player's selection
-        if ( character == 'K' || character == 'k' )
+        if ( characterInput == 'K' || characterInput == 'k' )
         {
-            std::cout << "You selected Knight. Are you sure? [y/n]";
+            std::cout << "You selected Knight. Are you sure? [y/n]: ";
         }
-        else if ( character == 'M' || character == 'm' )
+        else if ( characterInput == 'M' || characterInput == 'm' )
         {
-            std::cout << "You selected Mage. Are you sure? [y/n]";
+            std::cout << "You selected Mage. Are you sure? [y/n]: ";
         }
-        else if ( character == 'O' || character == 'o' )
+        else if ( characterInput == 'O' || characterInput == 'o' )
         {
-            std::cout << "You selected Orc. Are you sure? [y/n]";
+            std::cout << "You selected Orc. Are you sure? [y/n]: ";
         }
-        else if ( character == 'E' || character == 'e' )
+        else if ( characterInput == 'E' || characterInput == 'e' )
         {
-            std::cout << "You selected Elf. Are you sure? [y/n]";
+            std::cout << "You selected Elf. Are you sure? [y/n]: ";
         }
-        else if ( character == 's' )
+        else if ( characterInput == 's' )
         {
             std::cout << "Character Stats:" << std::endl;
             std::cout << "Knight: \tStrength: 8/10, \tMagic 2/10, \tHealth: 5/10" << std::endl;
@@ -51,21 +52,21 @@ int main()
             std::cout << "[E] Elf" << std::endl;
             std::cout << "Selection: ";
             
-            std::cin >> character;
+            std::cin >> characterInput;
 
-            if ( character == 'K' || character == 'k' )
+            if ( characterInput == 'K' || characterInput == 'k' )
             {
                 std::cout << "You selected Knight. Are you sure? [y/n]: ";
             }
-            else if ( character == 'M' || character == 'm' )
+            else if ( characterInput == 'M' || characterInput == 'm' )
             {
                 std::cout << "You selected Mage. Are you sure? [y/n]: ";
             }
-            else if ( character == 'O' || character == 'o' )
+            else if ( characterInput == 'O' || characterInput == 'o' )
             {
                 std::cout << "You selected Orc. Are you sure? [y/n]: ";
             }
-            else if ( character == 'E' || character == 'e' )
+            else if ( characterInput == 'E' || characterInput == 'e' )
             {
                 std::cout << "You selected Elf. Are you sure? [y/n]: ";
             }
@@ -78,6 +79,8 @@ int main()
         if ( confirmSelection =='Y' || confirmSelection =='y' )
         {
             std::cout << std::endl << "Let's Play!" << std::endl;
+            Character player = Character( characterInput );
+
         }
     }
 
