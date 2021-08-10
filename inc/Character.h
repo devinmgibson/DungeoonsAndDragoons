@@ -18,7 +18,7 @@ class Character
             // NPCs (4-6)
             ZOMBIE,
             GIANT,
-            DRAGON
+            DRAGOON
         };
 
         // Constructors and Destructor
@@ -26,7 +26,7 @@ class Character
         // Constructor 
         Character();
         Character( const char& userInput );
-        Character( const CHARACTER_CLASS& monsterClass );
+        Character( const int& monsterClass );
         
         // Deconstructor
         ~Character();

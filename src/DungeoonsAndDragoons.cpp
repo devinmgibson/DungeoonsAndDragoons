@@ -93,10 +93,44 @@ int main()
     }
 
     // Create monsters
+    Character zombie    = Character( 4 );
+    int zombieStrength  = zombie.GetStrength();
+    int zombieMagic     = zombie.GetMagic();
+    int zombieHealth    = zombie.GetHealth();
 
-    // Load Dungeoon
+    Character giant     = Character( 5 );
+    int giantStrength   = zombie.GetStrength();
+    int giantMagic      = zombie.GetMagic();
+    int giantHealth     = zombie.GetHealth();
+
+    Character dragoon   = Character( 6 );
+    int dragoonStrength = zombie.GetStrength();
+    int dragoonMagic    = zombie.GetMagic();
+    int dragoonHealth   = zombie.GetHealth();
+
+    // Load dungeoon
 
     // Play game
+    bool playGame = true;
+    bool endOfDungeoonReached = false;
+    while ( playGame )
+    {
+        // Check if player has reached end of dungeoon
+        if ( playGame )
+        {
+            endOfDungeoonReached = true;
+        }
+
+        // Check if end of dungeoon has been reached
+        if ( endOfDungeoonReached )
+        {
+            // Game over
+            playGame = false;
+        }
+    }
+
+    // End of game
+    std::cout << "Congratulations! You have beaten Dungeoons and Dragoons!" << std::endl;
 
     return 0;
 }

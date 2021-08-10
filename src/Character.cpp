@@ -53,26 +53,28 @@ Character::Character( const char& userInput )
     };
 };
 
-Character::Character( const CHARACTER_CLASS& monsterClass )
+Character::Character( const int& monsterClass )
 {
     type_   = NPC;
-    class_  = monsterClass;
 
     switch ( monsterClass )
     {
-        case ZOMBIE:
+        case 4:
+            class_      = ZOMBIE;
             strength_   = 8;
             magic_      = 2;
             health_     = 5;
             break;
 
-        case GIANT:
+        case 5:
+            class_      = GIANT;
             strength_   = 2;
             magic_      = 8;
             health_     = 5;
             break;
 
-        case DRAGON:
+        case 6:
+            class_      = DRAGOON;
             strength_   = 9;
             magic_      = 0;
             health_     = 6;
