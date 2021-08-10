@@ -12,23 +12,23 @@ BUILD_DIR 	= build
 BIN_DIR 	= $(BUILD_DIR)/bin
 
 # Define include files
-_DEPS 		= Chess.h GamePiece.h
+_DEPS 		= DungeoonsAndDragoons.h Character.h
 DEPS 		= $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 # Define source files
-_SRCS 		= Chess.cpp GamePiece.cpp
+_SRCS 		= DungeoonsAndDragoons.cpp Character.cpp
 SRCS 		= $(patsubst %,$(SDIR)/%,$(_SRCS))
 
 # Define object files
-_BINS 		= Chess.o GamePiece.o
+_BINS 		= DungeoonsAndDragoons.o Character.o
 BINS 		= $(patsubst %,$(BIN_DIR)/%,$(_BINS))
 
 # Define make messages
 CLEAN 		= Build removal complete
 
 # Create program executable
-Chess: $(BUILD_DIR) $(BINS)
-	$(CXX) $(CXXFLAGS) -o Chess $(BINS)
+DungeoonsAndDragoons: $(BUILD_DIR) $(BINS)
+	$(CXX) $(CXXFLAGS) -o DungeoonsAndDragoons.exe $(BINS)
 
 # Create build and object directories
 $(BUILD_DIR):
@@ -37,12 +37,12 @@ $(BUILD_DIR):
 
 # Create build folder and define object (binary) files
 $(BIN_DIR)/%.o: $(SDIR)/%.cpp $(IDIR)/%.h
-	$(CXX) $(CXXFLAGS) -c $< -o $@ -I$(IDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -I $(IDIR)
 
 .PHONY: clean
 
 # Remove build
 clean:
 	@rm -f -r $(BUILD_DIR)
-	@rm -f Chess
+	@rm -f DungeoonsAndDragoons
 	@echo ${CLEAN}

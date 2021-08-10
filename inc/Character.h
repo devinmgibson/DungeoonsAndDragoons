@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 class Character
 {
     public:
@@ -31,11 +33,11 @@ class Character
 
         // Getter functions
         // ---------------------------
-        int GetType();
-        int GetClass();
-        int GetStrength();
-        int GetMagic();
-        int GetHealth();
+        std::string GetType();
+        std::string GetClass();
+        int         GetStrength();
+        int         GetMagic();
+        int         GetHealth();
 
     private:
         // Character type

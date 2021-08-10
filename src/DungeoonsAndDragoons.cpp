@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Character.h"
+#include "DungeoonsAndDragoons.h"
 
 int main()
 {   
@@ -75,14 +76,27 @@ int main()
         // Make player confirm selection
         std::cin >> confirmSelection;
 
-        // Let's play
-        if ( confirmSelection =='Y' || confirmSelection =='y' )
+        // Set player character
+        if ( confirmSelection == 'Y' || confirmSelection == 'y' )
         {
-            std::cout << std::endl << "Let's Play!" << std::endl;
-            Character player = Character( characterInput );
-
+            Character player        = Character( characterInput );
+            std::string playerType  = player.GetType();
+            std::string playerClass = player.GetClass();
+            int playerStrength      = player.GetStrength();
+            int playerMagic         = player.GetMagic();
+            int playerHealth        = player.GetHealth();
+        }
+        else if ( confirmSelection !='N' && confirmSelection !='n' )
+        {
+            std::cout << "Invalid selection!" << std::endl;
         }
     }
+
+    // Create monsters
+
+    // Load Dungeoon
+
+    // Play game
 
     return 0;
 }
