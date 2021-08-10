@@ -141,9 +141,9 @@ std::string Character::GetClass()
         characterClass = "GIANT";
     }
 
-    if ( class_ == DRAGON )
+    if ( class_ == DRAGOON )
     {
-        characterClass = "DRAGON";
+        characterClass = "DRAGOON";
     }
 
     return characterClass;
