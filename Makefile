@@ -12,15 +12,15 @@ BUILD_DIR 	= build
 BIN_DIR 	= $(BUILD_DIR)/bin
 
 # Define include files
-_DEPS 		= DungeoonsAndDragoons.h Character.h
+_DEPS 		= DungeoonsAndDragoons.h Character.h Dungeoon.h
 DEPS 		= $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 # Define source files
-_SRCS 		= DungeoonsAndDragoons.cpp Character.cpp
+_SRCS 		= DungeoonsAndDragoons.cpp Character.cpp Dungeoon.cpp
 SRCS 		= $(patsubst %,$(SDIR)/%,$(_SRCS))
 
 # Define object files
-_BINS 		= DungeoonsAndDragoons.o Character.o
+_BINS 		= DungeoonsAndDragoons.o Character.o Dungeoon.o
 BINS 		= $(patsubst %,$(BIN_DIR)/%,$(_BINS))
 
 # Define make messages

@@ -152,3 +152,60 @@ std::string Character::GetClass()
 int Character::GetStrength()    { return strength_; };
 int Character::GetMagic()       { return magic_;    };
 int Character::GetHealth()      { return health_;   };
+
+void Character::SetPlayerAtStart( const int& xPosition, const int& yPosition )
+{
+    xPosition_ = xPosition;
+    yPosition_ = yPosition;
+}
+
+/*
+void Character::SetAction( const char& action )
+{
+    switch ( action )
+    {
+        case 'f':
+        case 'F':
+            MoveForward();
+            break;
+
+        case 'b':
+        case 'B':
+            MoveBackward();
+            break;
+
+        case 'l':
+        case 'L':
+            MoveLeft();
+            break;
+
+        case 'r':
+        case 'R':
+            MoveRight();
+            break;
+
+        case 'p':
+        case 'P':
+            PickupItem();
+            break;
+
+        case 'd':
+        case 'D':
+            DropItem();
+            break;
+
+        case 'e':
+        case 'E':
+            EngageMonster();
+            break;
+
+        case 'a':
+        case 'A':
+            RunAway();
+            break;
+
+        default :
+            break;
+    }
+}
+*/

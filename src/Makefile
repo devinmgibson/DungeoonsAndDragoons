@@ -9,10 +9,10 @@ SDIR = src # Source (.cpp) files
 # Compiler flags
 CFLAGS = -I$(IDIR) -g -Wall
 
-_DEPS = Character.h
+_DEPS = DungeoonsAndDragoons.h Character.h Dungeoon.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_SRC = DungeoonsAndDragoons.cpp Character.cpp
+_SRC = DungeoonsAndDragoons.cpp Character.cpp Dungeoon.cpp
 SRC = $(patsubst %,$(SDIR)/%,$(_SRC))
 
 # Put object files into obj directory

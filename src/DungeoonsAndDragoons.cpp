@@ -1,5 +1,5 @@
-#include <iostream>
 #include "Character.h"
+#include "Dungeoon.h"
 #include "DungeoonsAndDragoons.h"
 
 int main()
@@ -75,22 +75,25 @@ int main()
 
         // Make player confirm selection
         std::cin >> confirmSelection;
-
-        // Set player character
         if ( confirmSelection == 'Y' || confirmSelection == 'y' )
         {
-            Character player        = Character( characterInput );
-            std::string playerType  = player.GetType();
-            std::string playerClass = player.GetClass();
-            int playerStrength      = player.GetStrength();
-            int playerMagic         = player.GetMagic();
-            int playerHealth        = player.GetHealth();
+            // Start game
+            break;
         }
-        else if ( confirmSelection !='N' && confirmSelection !='n' )
+        else if ( confirmSelection != 'N' && confirmSelection != 'n' )
         {
+            // Make user choose a valid selection
             std::cout << "Invalid selection!" << std::endl;
         }
     }
+
+    // Create player
+    Character player        = Character( characterInput );
+    std::string playerType  = player.GetType();
+    std::string playerClass = player.GetClass();
+    int playerStrength      = player.GetStrength();
+    int playerMagic         = player.GetMagic();
+    int playerHealth        = player.GetHealth();
 
     // Create monsters
     Character zombie    = Character( 4 );
@@ -109,12 +112,25 @@ int main()
     int dragoonHealth   = zombie.GetHealth();
 
     // Load dungeoon
-
+    Dungeoon dungeoon = Dungeoon();
+    
     // Play game
     bool playGame = true;
     bool endOfDungeoonReached = false;
+    char action = ' ';
     while ( playGame )
     {
+        // Place player at starting location
+        int startXPosition = dungeoon.GetStartXPosition();
+        int startYPosition = dungeoon.GetStartYPosition();
+        player.SetPlayerAtStart( startXPosition, startYPosition );
+
+        // Begin story
+        BeginStory();
+        std::cin >> action;
+        // CheckInput( action );
+        // player.SetAction( action );
+
         // Check if player has reached end of dungeoon
         if ( playGame )
         {
@@ -131,6 +147,22 @@ int main()
 
     // End of game
     std::cout << "Congratulations! You have beaten Dungeoons and Dragoons!" << std::endl;
+}
 
-    return 0;
+void CheckInput()
+{
+    if 
+}
+
+void BeginStory()
+{
+    std::cout << "You find yourself in a dark and dank place..." << std::endl;
+    std::cout << "There is just enough light to see only a few feet in front of you..." << std::endl;
+    std::cout << "What will you do?" << std::endl;
+
+    std::cout << "Move Character:" << std::endl;
+    std::cout << "[F] Forward" << std::endl;
+    std::cout << "[L] Left" << std::endl;
+    std::cout << "[R] Right" << std::endl;
+    std::cout << "Selection: ";
 }
