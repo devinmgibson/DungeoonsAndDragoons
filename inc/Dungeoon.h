@@ -15,9 +15,10 @@ class Dungeoon
 
         // Getter and setter functions
         // ---------------------------
-        int     GetStartXPosition();
-        int     GetStartYPosition();
-        //void    GetDirections();
+        unsigned int    GetDungeoonSize();
+        int             GetStartXPosition();
+        int             GetStartYPosition();
+        char            GetAdjacentSpace( const int& adjacentXLocation, const int& adjacentYLocation );
 
     private:
         static const unsigned int GAME_BOARD_SIZE = 5;

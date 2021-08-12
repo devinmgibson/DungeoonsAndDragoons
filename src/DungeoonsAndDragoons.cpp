@@ -1,5 +1,4 @@
-#include "Character.h"
-#include "Dungeoon.h"
+
 #include "DungeoonsAndDragoons.h"
 
 int main()
@@ -87,6 +86,9 @@ int main()
         }
     }
 
+    // Load dungeoon
+    Dungeoon dungeoon = Dungeoon();
+
     // Create player
     Character player        = Character( characterInput );
     std::string playerType  = player.GetType();
@@ -94,6 +96,11 @@ int main()
     int playerStrength      = player.GetStrength();
     int playerMagic         = player.GetMagic();
     int playerHealth        = player.GetHealth();
+
+    // Place player at starting location
+    int startXPosition = dungeoon.GetStartXPosition();
+    int startYPosition = dungeoon.GetStartYPosition();
+    player.SetPlayerAtStart( startXPosition, startYPosition );
 
     // Create monsters
     Character zombie    = Character( 4 );
@@ -111,30 +118,27 @@ int main()
     int dragoonMagic    = zombie.GetMagic();
     int dragoonHealth   = zombie.GetHealth();
 
-    // Load dungeoon
-    Dungeoon dungeoon = Dungeoon();
-    
-    // Play game
+    // Begin story
     bool playGame = true;
     bool endOfDungeoonReached = false;
     char action = ' ';
+    BeginStory( playerHealth, playerStrength, playerMagic );
+    std::cin >> action;
+    // TODO: CheckInput( action );
+    player.SetAction( action, dungeoon );
+    
+    // Play game
     while ( playGame )
     {
-        // Place player at starting location
-        int startXPosition = dungeoon.GetStartXPosition();
-        int startYPosition = dungeoon.GetStartYPosition();
-        player.SetPlayerAtStart( startXPosition, startYPosition );
-
-        // Begin story
-        BeginStory();
+        std::cout << "Current player position: " << player.GetXPosition() << ", " << player.GetYPosition() << std::endl;
+        std::cout << "What will you do?" << std::endl;
         std::cin >> action;
-        // CheckInput( action );
-        // player.SetAction( action );
+        player.SetAction( action, dungeoon );
 
         // Check if player has reached end of dungeoon
         if ( playGame )
         {
-            endOfDungeoonReached = true;
+            
         }
 
         // Check if end of dungeoon has been reached
@@ -151,10 +155,10 @@ int main()
 
 void CheckInput()
 {
-    if 
+
 }
 
-void BeginStory()
+void BeginStory( const int& health, const int& strength, const int& magic )
 {
     std::cout << "You find yourself in a dark and dank place..." << std::endl;
     std::cout << "There is just enough light to see only a few feet in front of you..." << std::endl;
@@ -164,5 +168,5 @@ void BeginStory()
     std::cout << "[F] Forward" << std::endl;
     std::cout << "[L] Left" << std::endl;
     std::cout << "[R] Right" << std::endl;
-    std::cout << "Selection: ";
+    std::cout << "Selection (Health: " << health << ", Strength: " << strength << ", Magic: " << magic << "): ";
 }

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include "Dungeoon.h"
 
 class Character
 {
@@ -23,8 +24,10 @@ class Character
         int         GetStrength();
         int         GetMagic();
         int         GetHealth();
+        int         GetXPosition();
+        int         GetYPosition();
         void        SetPlayerAtStart( const int& xPosition, const int& yPosition );
-        //void        SetAction( const char& action );
+        void        SetAction( const char& action, Dungeoon& dungeoon );
 
     private:
         // Character type
@@ -66,10 +69,10 @@ class Character
         
         // Character action functions
         // ---------------------------
-        //void        MoveForward();
-        //void        MoveBackward();
-        //void        MoveLeft();
-        //void        MoveRight();
+        void        MoveForward( const unsigned int& dungeoonSize, const char& nextSpace );
+        void        MoveBackward( const unsigned int& dungeoonSize, const char& nextSpace );
+        void        MoveLeft( const unsigned int& dungeoonSize, const char& nextSpace );
+        void        MoveRight( const unsigned int& dungeoonSize, const char& nextSpace );
         //void        PickupItem();
         //void        DropItem();
         //void        EngageMonster();

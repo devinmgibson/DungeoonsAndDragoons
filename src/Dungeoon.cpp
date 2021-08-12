@@ -42,6 +42,11 @@ void Dungeoon::DungeoonSetup()
     gameBoard_[4][3] = 'C'; // Skip position (move to next available location)
 }
 
+unsigned int Dungeoon::GetDungeoonSize()
+{
+    return GAME_BOARD_SIZE;
+}
+
 int Dungeoon::GetStartXPosition()
 {
     int startXPosition = 0;
@@ -51,7 +56,7 @@ int Dungeoon::GetStartXPosition()
         {
             if ( gameBoard_[i][j] == 'S' )
             {
-                startXPosition = i;
+                startXPosition = j;
                 break;
             }
         }
@@ -69,11 +74,16 @@ int Dungeoon::GetStartYPosition()
         {
             if ( gameBoard_[i][j] == 'S' )
             {
-                startYPosition = j;
+                startYPosition = i;
                 break;
             }
         }
     }
 
     return startYPosition;
+}
+
+char Dungeoon::GetAdjacentSpace( const int& adjacentXLocation, const int& adjacentYLocation)
+{
+    return gameBoard_[adjacentXLocation][adjacentYLocation];
 }

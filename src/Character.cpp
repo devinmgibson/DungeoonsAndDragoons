@@ -149,9 +149,11 @@ std::string Character::GetClass()
     return characterClass;
 };
 
-int Character::GetStrength()    { return strength_; };
-int Character::GetMagic()       { return magic_;    };
-int Character::GetHealth()      { return health_;   };
+int Character::GetStrength()    { return strength_;     };
+int Character::GetMagic()       { return magic_;        };
+int Character::GetHealth()      { return health_;       };
+int Character::GetXPosition()   { return xPosition_;    };
+int Character::GetYPosition()   { return yPosition_;    };
 
 void Character::SetPlayerAtStart( const int& xPosition, const int& yPosition )
 {
@@ -159,53 +161,128 @@ void Character::SetPlayerAtStart( const int& xPosition, const int& yPosition )
     yPosition_ = yPosition;
 }
 
-/*
-void Character::SetAction( const char& action )
+void Character::SetAction( const char& action, Dungeoon& dungeoon )
 {
+    int newXPosition = 0;
+    int newYPosition = 0;
+    char nextSpace = ' ';
+    unsigned int dungeoonSize = dungeoon.GetDungeoonSize();
+
     switch ( action )
     {
         case 'f':
         case 'F':
-            MoveForward();
+            newXPosition    = xPosition_;
+            newYPosition    = yPosition_++;
+            nextSpace       = dungeoon.GetAdjacentSpace( newXPosition, newYPosition );
+            if ( yPosition_ != dungeoonSize - 1 )
+            {
+                MoveForward( dungeoonSize, nextSpace );
+            }
             break;
 
         case 'b':
         case 'B':
-            MoveBackward();
+            newXPosition    = xPosition_;
+            newYPosition    = yPosition_--;
+            nextSpace       = dungeoon.GetAdjacentSpace( newXPosition, newYPosition );
+            if ( yPosition_ != 0 )
+            {
+                MoveBackward( dungeoonSize, nextSpace );
+            }
             break;
 
         case 'l':
         case 'L':
-            MoveLeft();
+            newXPosition    = xPosition_--;
+            newYPosition    = yPosition_;
+            nextSpace       = dungeoon.GetAdjacentSpace( newXPosition, newYPosition );
+            if ( xPosition_ != 0 )
+            {
+                MoveLeft( dungeoonSize, nextSpace );
+            }
             break;
 
         case 'r':
         case 'R':
-            MoveRight();
+            newXPosition    = xPosition_++;
+            newYPosition    = yPosition_;
+            nextSpace       = dungeoon.GetAdjacentSpace( newXPosition, newYPosition );
+            if ( xPosition_ != 0 )
+            {
+                MoveRight( dungeoonSize, nextSpace );
+            }
             break;
 
         case 'p':
         case 'P':
-            PickupItem();
+            //PickupItem();
             break;
 
         case 'd':
         case 'D':
-            DropItem();
+            //DropItem();
             break;
 
         case 'e':
         case 'E':
-            EngageMonster();
+            //EngageMonster();
             break;
 
         case 'a':
         case 'A':
-            RunAway();
+            //RunAway();
             break;
 
         default :
             break;
     }
 }
-*/
+
+void Character::MoveForward( const unsigned int& dungeoonSize, const char& nextSpace )
+{
+    if ( yPosition_ < dungeoonSize && nextSpace == ' ' )
+    {
+        yPosition_++;
+    }
+    else if ( yPosition_ < dungeoonSize && nextSpace == 'C' )
+    {
+        yPosition_ += 2;
+    }
+}
+
+void Character::MoveBackward( const unsigned int& dungeoonSize, const char& nextSpace )
+{
+    if ( yPosition_ > 0 && nextSpace == ' ' )
+    {
+        yPosition_--;
+    }
+    else if ( yPosition_ > 0 && nextSpace == 'C' )
+    {
+        yPosition_ -= 2;
+    }
+}
+
+void Character::MoveLeft( const unsigned int& dungeoonSize, const char& nextSpace )
+{
+    if ( xPosition_ > 0 && nextSpace == ' ' )
+    {
+        xPosition_--;
+    }
+    else if ( xPosition_ > 0 && nextSpace == 'C' )
+    {
+        xPosition_ -= 2;
+    }
+}
+
+void Character::MoveRight( const unsigned int& dungeoonSize, const char& nextSpace )
+{
+    if ( xPosition_ < dungeoonSize && nextSpace == ' ' )
+    {
+        xPosition_++;
+    }
+    else if ( xPosition_ < dungeoonSize && nextSpace == 'C' )
+    {
+        xPosition_ += 2;
+    }
+}
