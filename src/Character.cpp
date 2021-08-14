@@ -2,16 +2,24 @@
 
 Character::Character()
 {
-    type_       = 0;
-    class_      = 0;
-    strength_   = 0;
-    magic_      = 0;
-    health_     = 0;
+    type_           = 0;
+    class_          = 0;
+    strength_       = 0;
+    magic_          = 0;
+    health_         = 0;
+    xPosition_      = 0;
+    yPosition_      = 0;
+    xPositionPrev_  = 0;
+    yPositionPrev_  = 0;
 };
 
 Character::Character( const char& userInput )
 {
     type_ = PC;
+    xPosition_ = 0;
+    yPosition_ = 0;
+    xPositionPrev_ = 0;
+    yPositionPrev_ = 0;
 
     switch ( userInput )
     {
@@ -56,6 +64,10 @@ Character::Character( const char& userInput )
 Character::Character( const int& monsterClass )
 {
     type_   = NPC;
+    xPosition_ = 0;
+    yPosition_ = 0;
+    xPositionPrev_ = 0;
+    yPositionPrev_ = 0;
 
     switch ( monsterClass )
     {
@@ -149,20 +161,29 @@ std::string Character::GetClass()
     return characterClass;
 };
 
-int Character::GetStrength()    { return strength_;     };
-int Character::GetMagic()       { return magic_;        };
-int Character::GetHealth()      { return health_;       };
-int Character::GetXPosition()   { return xPosition_;    };
-int Character::GetYPosition()   { return yPosition_;    };
+int Character::GetStrength()        { return strength_;     };
+int Character::GetMagic()           { return magic_;        };
+int Character::GetHealth()          { return health_;       };
+int Character::GetXPosition()       { return xPosition_;    };
+int Character::GetYPosition()       { return yPosition_;    };
+int Character::DecreaseStrength()   { return strength_--;   };
+int Character::DecreaseMagic()      { return magic_--;      };
+int Character::DecreaseHealth()     { return health_--;     };
+int Character::IncreaseStrength()   { return strength_++;   };
+int Character::IncreaseMagic()      { return magic_++;      };
+int Character::IncreaseHealth()     { return health_++;     };
 
 void Character::SetPlayerAtStart( const int& xPosition, const int& yPosition )
 {
     xPosition_ = xPosition;
     yPosition_ = yPosition;
+    xPositionPrev_ = xPosition;
+    yPositionPrev_ = yPosition;
 }
 
-void Character::SetAction( const char& action, Dungeoon& dungeoon )
+bool Character::SetAction( const char& action, Dungeoon& dungeoon )
 {
+    bool engageMonster = false;
     int newXPosition = 0;
     int newYPosition = 0;
     char nextSpace = ' ';
@@ -173,9 +194,9 @@ void Character::SetAction( const char& action, Dungeoon& dungeoon )
         case 'f':
         case 'F':
             newXPosition    = xPosition_;
-            newYPosition    = yPosition_++;
+            newYPosition    = yPosition_ - 1;
             nextSpace       = dungeoon.GetAdjacentSpace( newXPosition, newYPosition );
-            if ( yPosition_ != dungeoonSize - 1 )
+            if ( yPosition_ != 0 )
             {
                 MoveForward( dungeoonSize, nextSpace );
             }
@@ -184,9 +205,9 @@ void Character::SetAction( const char& action, Dungeoon& dungeoon )
         case 'b':
         case 'B':
             newXPosition    = xPosition_;
-            newYPosition    = yPosition_--;
+            newYPosition    = yPosition_ + 1;
             nextSpace       = dungeoon.GetAdjacentSpace( newXPosition, newYPosition );
-            if ( yPosition_ != 0 )
+            if ( yPosition_ != dungeoonSize - 1 )
             {
                 MoveBackward( dungeoonSize, nextSpace );
             }
@@ -194,7 +215,7 @@ void Character::SetAction( const char& action, Dungeoon& dungeoon )
 
         case 'l':
         case 'L':
-            newXPosition    = xPosition_--;
+            newXPosition    = xPosition_ - 1;
             newYPosition    = yPosition_;
             nextSpace       = dungeoon.GetAdjacentSpace( newXPosition, newYPosition );
             if ( xPosition_ != 0 )
@@ -205,7 +226,7 @@ void Character::SetAction( const char& action, Dungeoon& dungeoon )
 
         case 'r':
         case 'R':
-            newXPosition    = xPosition_++;
+            newXPosition    = xPosition_ + 1;
             newYPosition    = yPosition_;
             nextSpace       = dungeoon.GetAdjacentSpace( newXPosition, newYPosition );
             if ( xPosition_ != 0 )
@@ -214,75 +235,89 @@ void Character::SetAction( const char& action, Dungeoon& dungeoon )
             }
             break;
 
-        case 'p':
-        case 'P':
-            //PickupItem();
-            break;
-
-        case 'd':
-        case 'D':
-            //DropItem();
-            break;
-
         case 'e':
         case 'E':
-            //EngageMonster();
+            engageMonster = EngageMonster();
             break;
 
         case 'a':
         case 'A':
-            //RunAway();
+            RunAway();
             break;
 
         default :
             break;
     }
+
+    return engageMonster;
 }
 
 void Character::MoveForward( const unsigned int& dungeoonSize, const char& nextSpace )
 {
-    if ( yPosition_ < dungeoonSize && nextSpace == ' ' )
+    xPositionPrev_ = xPosition_;
+    yPositionPrev_ = yPosition_;
+    if ( nextSpace == 'C' )
     {
-        yPosition_++;
+        yPosition_ -= 2;
     }
-    else if ( yPosition_ < dungeoonSize && nextSpace == 'C' )
+    else
     {
-        yPosition_ += 2;
+        yPosition_--;
     }
 }
 
 void Character::MoveBackward( const unsigned int& dungeoonSize, const char& nextSpace )
 {
-    if ( yPosition_ > 0 && nextSpace == ' ' )
+    xPositionPrev_ = xPosition_;
+    yPositionPrev_ = yPosition_;
+    if ( nextSpace == 'C' )
+    {
+        yPosition_ += 2;
+    }
+    else
     {
         yPosition_--;
-    }
-    else if ( yPosition_ > 0 && nextSpace == 'C' )
-    {
-        yPosition_ -= 2;
     }
 }
 
 void Character::MoveLeft( const unsigned int& dungeoonSize, const char& nextSpace )
 {
-    if ( xPosition_ > 0 && nextSpace == ' ' )
-    {
-        xPosition_--;
-    }
-    else if ( xPosition_ > 0 && nextSpace == 'C' )
+    xPositionPrev_ = xPosition_;
+    yPositionPrev_ = yPosition_;
+    if ( nextSpace == 'C' )
     {
         xPosition_ -= 2;
+    }
+    else
+    {
+        xPosition_--;
     }
 }
 
 void Character::MoveRight( const unsigned int& dungeoonSize, const char& nextSpace )
 {
-    if ( xPosition_ < dungeoonSize && nextSpace == ' ' )
-    {
-        xPosition_++;
-    }
-    else if ( xPosition_ < dungeoonSize && nextSpace == 'C' )
+    xPositionPrev_ = xPosition_;
+    yPositionPrev_ = yPosition_;
+    if ( nextSpace == 'C' )
     {
         xPosition_ += 2;
     }
+    else
+    {
+        xPosition_++;
+    }
+}
+
+bool Character::EngageMonster()
+{
+    std::cout << "You engage the monster..." << std::endl;
+    return true;
+}
+
+void Character::RunAway()
+{
+    std::cout << "You get away, but not without a few wounds. Health decreased by 2!" << std::endl;
+    health_ -= 2;
+    xPosition_ = xPositionPrev_;
+    yPosition_ = yPositionPrev_;
 }

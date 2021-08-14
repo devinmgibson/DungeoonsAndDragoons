@@ -98,9 +98,9 @@ int main()
     int playerHealth        = player.GetHealth();
 
     // Place player at starting location
-    int startXPosition = dungeoon.GetStartXPosition();
-    int startYPosition = dungeoon.GetStartYPosition();
-    player.SetPlayerAtStart( startXPosition, startYPosition );
+    int currentXPosition = dungeoon.GetStartXPosition();
+    int currentYPosition = dungeoon.GetStartYPosition();
+    player.SetPlayerAtStart( currentXPosition, currentYPosition );
 
     // Create monsters
     Character zombie    = Character( 4 );
@@ -124,16 +124,31 @@ int main()
     char action = ' ';
     BeginStory( playerHealth, playerStrength, playerMagic );
     std::cin >> action;
-    // TODO: CheckInput( action );
-    player.SetAction( action, dungeoon );
+    bool engageMonster = player.SetAction( action, dungeoon );
     
     // Play game
     while ( playGame )
     {
-        std::cout << "Current player position: " << player.GetXPosition() << ", " << player.GetYPosition() << std::endl;
-        std::cout << "What will you do?" << std::endl;
+        currentXPosition = player.GetXPosition();
+        currentYPosition = player.GetYPosition();
+        std::cout << "Current Position: " << currentXPosition << ", " << currentYPosition << std::endl;
+        char currentSpace = dungeoon.GetCurrentSpace( currentXPosition, currentYPosition );
+        dungeoon.GetAvailableActions( currentXPosition, currentYPosition, currentSpace );
+        if ( currentSpace == 'F' )
+        {
+            player.IncreaseHealth();
+        }
+        else if ( currentSpace == 'P' )
+        {
+            player.IncreaseMagic();
+        }
+        else if ( currentSpace  == 'W' )
+        {
+            player.IncreaseStrength();
+        }
+        std::cout << "Selection (Health: " << player.GetHealth() << ", Strength: " << player.GetStrength() << ", Magic: " << player.GetMagic() << "): ";
         std::cin >> action;
-        player.SetAction( action, dungeoon );
+        engageMonster = player.SetAction( action, dungeoon );
 
         // Check if player has reached end of dungeoon
         if ( playGame )
@@ -163,7 +178,6 @@ void BeginStory( const int& health, const int& strength, const int& magic )
     std::cout << "You find yourself in a dark and dank place..." << std::endl;
     std::cout << "There is just enough light to see only a few feet in front of you..." << std::endl;
     std::cout << "What will you do?" << std::endl;
-
     std::cout << "Move Character:" << std::endl;
     std::cout << "[F] Forward" << std::endl;
     std::cout << "[L] Left" << std::endl;

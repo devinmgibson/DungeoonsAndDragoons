@@ -27,7 +27,16 @@ class Character
         int         GetXPosition();
         int         GetYPosition();
         void        SetPlayerAtStart( const int& xPosition, const int& yPosition );
-        void        SetAction( const char& action, Dungeoon& dungeoon );
+        bool        SetAction( const char& action, Dungeoon& dungeoon );
+
+        // Change character stats
+        // ---------------------------
+        int        DecreaseStrength();
+        int        DecreaseMagic();
+        int        DecreaseHealth();
+        int        IncreaseStrength();
+        int        IncreaseMagic();
+        int        IncreaseHealth();
 
     private:
         // Character type
@@ -66,6 +75,8 @@ class Character
         int health_;
         int xPosition_;
         int yPosition_;
+        int xPositionPrev_;
+        int yPositionPrev_;
         
         // Character action functions
         // ---------------------------
@@ -73,9 +84,7 @@ class Character
         void        MoveBackward( const unsigned int& dungeoonSize, const char& nextSpace );
         void        MoveLeft( const unsigned int& dungeoonSize, const char& nextSpace );
         void        MoveRight( const unsigned int& dungeoonSize, const char& nextSpace );
-        //void        PickupItem();
-        //void        DropItem();
-        //void        EngageMonster();
-        //void        RunAway();
+        bool        EngageMonster();
+        void        RunAway();
 
 };
