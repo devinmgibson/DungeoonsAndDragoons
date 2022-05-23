@@ -134,21 +134,50 @@ int main()
         std::cout << "Current Position: " << currentXPosition << ", " << currentYPosition << std::endl;
         char currentSpace = dungeoon.GetCurrentSpace( currentXPosition, currentYPosition );
         dungeoon.GetAvailableActions( currentXPosition, currentYPosition, currentSpace );
+
         if ( currentSpace == 'F' )
         {
             player.IncreaseHealth();
+            playerHealth = player.GetHealth();
         }
         else if ( currentSpace == 'P' )
         {
             player.IncreaseMagic();
+            playerMagic = player.GetMagic();
         }
         else if ( currentSpace  == 'W' )
         {
             player.IncreaseStrength();
+            playerStrength = player.GetStrength();
         }
-        std::cout << "Selection (Health: " << player.GetHealth() << ", Strength: " << player.GetStrength() << ", Magic: " << player.GetMagic() << "): ";
+
+        std::cout << "Selection (Health: " << playerHealth << ", Strength: " << playerStrength << ", Magic: " << playerMagic << "): ";
         std::cin >> action;
         engageMonster = player.SetAction( action, dungeoon );
+        if ( engageMonster )
+        {
+            int playerStatIncValue = player.RollDice();
+            std::cout << "Player Health: " << playerHealth << ", Strength: " << playerStrength << ", Magic: " << playerMagic << std::endl;
+            if ( currentSpace == 'D' )
+            {
+                int mosnterStatIncValue = dragoon.RollDice();
+                char monsterHighStat = 'S';
+                std::cout << "Dragoon Health: " << dragoonHealth << ", Strength: " << dragoonStrength << ", Magic: " << dragoonMagic << std::endl;
+            }
+            else if ( currentSpace == 'G' )
+            {
+                int mosnterStatIncValue = giant.RollDice();
+                char monsterHighStat = 'S';
+                std::cout << "Giant Health: " << giantHealth << ", Strength: " << giantStrength << ", Magic: " << giantMagic << std::endl;
+            }
+            else if ( currentSpace == 'Z' )
+            {
+                int mosnterStatIncValue = zombie.RollDice();
+                char monsterHighStat = 'S';
+                std::cout << "Zombie Health: " << zombieHealth << ", Strength: " << zombieStrength << ", Magic: " << zombieMagic << std::endl;
+            }
+        }
+
 
         // Check if player has reached end of dungeoon
         if ( playGame )

@@ -173,6 +173,15 @@ int Character::IncreaseStrength()   { return strength_++;   };
 int Character::IncreaseMagic()      { return magic_++;      };
 int Character::IncreaseHealth()     { return health_++;     };
 
+int Character::RollDice()
+{
+    std::default_random_engine generator;
+    std::uniform_int_distribution<int> distribution( 1, 6 );
+    int diceRoll = distribution( generator );
+
+    return diceRoll;
+}
+
 void Character::SetPlayerAtStart( const int& xPosition, const int& yPosition )
 {
     xPosition_ = xPosition;

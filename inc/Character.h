@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <random>
 #include <string>
 #include "Dungeoon.h"
 
@@ -31,12 +32,13 @@ class Character
 
         // Change character stats
         // ---------------------------
-        int        DecreaseStrength();
-        int        DecreaseMagic();
-        int        DecreaseHealth();
-        int        IncreaseStrength();
-        int        IncreaseMagic();
-        int        IncreaseHealth();
+        int         DecreaseStrength();
+        int         DecreaseMagic();
+        int         DecreaseHealth();
+        int         IncreaseStrength();
+        int         IncreaseMagic();
+        int         IncreaseHealth();
+        int         RollDice();
 
     private:
         // Character type
@@ -70,9 +72,11 @@ class Character
         // ---------------------------
         int type_;
         int class_;
-        int strength_;
+        int attack.;
         int magic_;
         int health_;
+        char strength_;
+        char weakness_;
         int xPosition_;
         int yPosition_;
         int xPositionPrev_;
@@ -80,11 +84,11 @@ class Character
         
         // Character action functions
         // ---------------------------
-        void        MoveForward( const unsigned int& dungeoonSize, const char& nextSpace );
-        void        MoveBackward( const unsigned int& dungeoonSize, const char& nextSpace );
-        void        MoveLeft( const unsigned int& dungeoonSize, const char& nextSpace );
-        void        MoveRight( const unsigned int& dungeoonSize, const char& nextSpace );
-        bool        EngageMonster();
-        void        RunAway();
+        void    MoveForward( const unsigned int& dungeoonSize, const char& nextSpace );
+        void    MoveBackward( const unsigned int& dungeoonSize, const char& nextSpace );
+        void    MoveLeft( const unsigned int& dungeoonSize, const char& nextSpace );
+        void    MoveRight( const unsigned int& dungeoonSize, const char& nextSpace );
+        bool    EngageMonster();
+        void    RunAway();
 
 };
